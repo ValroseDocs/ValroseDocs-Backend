@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto flex flex-wrap">
+    <div class="flex flex-wrap w-full">
+      <div class="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
+        <div class="flex relative pb-12">
+          <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+            <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+          </div>
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-green-500 inline-flex items-center justify-center text-white relative z-10">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+            </svg>
+          </div>
+          <div class="flex-grow pl-4">
+            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">PREMIÈRE ÉTAPE</h2>
+            <p class="leading-relaxed">Choisi ton semestre</p>
+          </div>
+        </div>
+        <div class="flex relative pb-12">
+          <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+            <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+          </div>
+          <div class="flex-shrink-0 w-10 h-10 rounded-full {{'bg-green-100' if step1 == None else 'bg-green-500'}} inline-flex items-center justify-center text-white relative z-10">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+            </svg>
+          </div>
+          <div class="flex-grow pl-4">
+            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider {{'opacity-20' if step1 == None else ''}}">DEUXIÈME ÉTAPE</h2>
+            <p class="leading-relaxed {{'opacity-20' if step1 == None else ''}}">Choisi ton unité d'enseignement</p>
+          </div>
+        </div>
+        <div class="flex relative">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full {{'bg-green-100' if step2 == None else 'bg-green-500'}} inline-flex items-center justify-center text-white relative z-10">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12" />
+            </svg>
+          </div>
+          <div class="flex-grow pl-4">
+            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider {{'opacity-20' if step2 == None else ''}}">DERNIÈRE ÉTAPE</h2>
+            <p class="leading-relaxed {{'opacity-20' if step2 == None else ''}}">Choisi le document que tu veux</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12" alt="step">
+        <section class="text-gray-600 body-font">
+          <div class="flex flex-wrap -m-4">
+            {% for i in range(data_len) %}
+            <div class="p-4 md:w-1/2 cursor-pointer" onclick="location.href='{{data[i]['url']}}'">
+              <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-lg">
+                <img class="aspect-video w-full object-cover object-center" src="{{url_for('static', filename=data[i]['image'])}}">
+                <div class="p-6">
+                  {% if "tag" in data[i] %}
+                    <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{data[i]["tag"]}}</h2>
+                  {% endif %}
+                  <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{data[i]["name"]}}</h1>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
