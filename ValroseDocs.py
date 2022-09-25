@@ -91,4 +91,5 @@ def get_data():
   valrose = [f for f in data if f['id'] == config['base_folder']['id']][0]
   return valrose["directories"]
 
-app.run(host='0.0.0.0', port=81)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=81)
