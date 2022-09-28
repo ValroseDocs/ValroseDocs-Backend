@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request
+import flask_monitoringdashboard as dashboard
 import requests, yaml
 
 app = Flask(__name__)
+dashboard.bind(app)
+
 config = None
 
 with open("static/config.yml", "r") as stream:
@@ -97,6 +100,3 @@ def get_data():
   data = response.json()["sharedTree"]["directories"]
   valrose = [f for f in data if f['id'] == config['base_folder']['id']][0]
   return valrose["directories"]
-
-app.run(host='0.0.0.0', port=81)
-
