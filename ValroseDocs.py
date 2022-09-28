@@ -63,11 +63,18 @@ def index():
       parsed_data[i]["url"] = f"/?step1={step1}&step2={s['id']}"
     else:
       parsed_data[i]["url"] = f"{s['generatedLink']}?embedded=true"
+  
+  step1btn = f'/' if step1 is not None else '#'
+  step2btn = f'/?step1={step1}' if step2 is not None else '#'
+  
+  
   return render_template(
     'index.html',
     step1=step1,
     step2=step2,
     step3=step3,
+    step1btn=step1btn,
+    step2btn=step2btn,
     data=parsed_data,
     data_len=len(parsed_data)
   )
@@ -91,5 +98,5 @@ def get_data():
   valrose = [f for f in data if f['id'] == config['base_folder']['id']][0]
   return valrose["directories"]
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=81)
+app.run(host='0.0.0.0', port=81)
+
