@@ -130,3 +130,5 @@ dmypy.json
 .DS_Store
 
 flask_monitoringdashboard.db
+node_modules/
+package-lock.json

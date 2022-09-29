@@ -8,7 +8,7 @@
     <meta content="Un site pour l'Université Côte d'Azur" property="og:description" />
     <meta content="https://i.imgur.com/3h9MrNS.png" property="og:image" />
     <meta content="#22c55e" data-react-helmet="true" name="theme-color" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
     <link rel="icon" href="{{url_for('static', filename='favicon.svg')}}" type="image/svg+xml">
     <title>{% block title %}{% endblock %}Valrose Docs</title>
     {% endblock %}
