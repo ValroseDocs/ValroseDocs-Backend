@@ -57,7 +57,8 @@
         <section class="text-gray-600 body-font">
           <div class="flex flex-wrap -m-4">
             {% for i in range(data_len) %}
-            <div class="p-4 md:w-1/2 cursor-pointer" onclick="location.href='{{data[i]['url']}}'">
+            <div class="p-4 md:w-1/2 cursor-pointer"
+              onclick="{{'window.open(`' + data[i]['url'] + '`' + (', `_blank`' if step2 != None else ', `_self`') + ')'}}">
               <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-lg">
                 <img class="aspect-video w-full object-cover object-center" src="{{url_for('static', filename=data[i]['image'])}}">
                 <div class="p-6">

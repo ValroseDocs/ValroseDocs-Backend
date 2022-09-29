@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request
-import flask_monitoringdashboard as dashboard
 import requests, yaml
 
 app = Flask(__name__)
-dashboard.bind(app)
 
 config = None
 
