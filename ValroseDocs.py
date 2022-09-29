@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request
-import requests, yaml
+import requests, yaml, os
 
 app = Flask(__name__)
+
+if os.environ.get('FLASK_ENV') != 'development':
+  import flask_monitoringdashboard as dashboard
+  dashboard.bind(app)
 
 config = None
 
