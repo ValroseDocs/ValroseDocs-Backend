@@ -66,7 +66,7 @@ def api_get_data():
         lessons[l_i]["name"] = l["documents"][0]["name"]
         lessons[l_i]["tag"] = l["name"]
         lessons[l_i]["image"] = ti[l["name"]] if l["name"] in ti else "file.svg"
-        lessons[l_i]["url"] = l["generatedLink"]
+        lessons[l_i]["url"] = l["generatedLink"] + "?embbeded=true"
         l_i += 1
       units[u_i]["children"] = lessons
       u_i += 1
