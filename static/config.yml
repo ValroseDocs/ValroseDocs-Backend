@@ -1,28 +1,27 @@
 base_folder:
-  id: 4OzL3COXIe6I1V
-  sharedLink: rV4B7tJ8tEpUBj6MkycM9pErcqg83BqUov38qv
+  id: 35nE6fy4Uvg
 conversion:
-  VZnBYudKf0OhEA:
+  mxEaku0YsO9:
     name: Période Enjeux
     tag: S0 (L1)
     image: select.png
-  W2POZCBah4qSBY:
+  KpoKXH5QU6K:
     name: Mathématiques
     tag: Math0
-  BzvQLhDWHQDTmv:
+  0vePwFm0CWl:
     name: Semestre 1
     tag: S1 (L1)
     image: maths.png
-  LpBdKcnJupDSkX:
+  Gzk3rcAZUW4:
     name: Fondements
     tag: MF1
-  35nd7IL6cvgsAv:
+  w3Q7kInAI7A:
     name: Approfondissements
     tag: MA1
-  eDeOzFDWHGrUDM:
+  Q5093cvnf3Y:
     name: Electronique
     tag: EN1
-  DZ46DuWdcn7Cgk:
+  LpQkouV4cpD:
     name: "Bases de l'informatique"
     tag: BI1
 tag_image:

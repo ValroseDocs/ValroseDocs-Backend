@@ -5,3 +5,4 @@ uwsgi
 flask-cors
 requests
 flask_monitoringdashboard
+python-dotenv

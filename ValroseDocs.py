@@ -6,7 +6,9 @@ import yaml
 from flask import Flask, jsonify, Response
 from flask_cors import CORS
 from requests import Response
+from dotenv import load_dotenv
 
+load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
@@ -43,7 +45,21 @@ def api_get_data() -> tuple[Response, int] | Response:
     :return Response: The response from the API
     """
 
-    req_url: str = f"https://www.mathcha.io/api/init2?sharedLink={config['base_folder']['sharedLink']}"  # The URL to request
+    # First, we need to login to the API
+    # We get the login data from the .env file as we don't want to expose it on GitHub
+    json_data = {
+        'email': os.environ.get('EMAIL'),
+        'password': os.environ.get('PASSWORD'),
+    }
+
+    loginReq = requests.post('https://www.mathcha.io/api/up/login', json=json_data)
+
+    # If the request was unsuccessful, return the error
+    if loginReq.status_code != 200:
+        return jsonify({'error': 'Login failed'}), 500
+
+    # Otherwise, return get the data from the API
+    req_url: str = f"https://www.mathcha.io/api/init2?sharedLink="  # The URL to request
 
     # headers to send with the request
     headers_list = {
@@ -52,11 +68,11 @@ def api_get_data() -> tuple[Response, int] | Response:
     }
 
     # Make the request
-    response: Response = requests.request("GET", req_url, headers=headers_list)
+    response: Response = requests.request("GET", req_url, headers=headers_list, cookies=loginReq.cookies)
 
     # response's data encoded as a json object
     try:
-        data = response.json()["sharedTree"]["directories"]
+        data = response.json()["tree"]["directories"]
     except JSONDecodeError:
         return jsonify({
             "error": "Could not decode JSON"
@@ -92,16 +108,18 @@ def api_get_data() -> tuple[Response, int] | Response:
             units[u_i]["image"] = c[u["id"]]["image"] if "image" in c[u["id"]] else "file.svg"
             lessons = []
             l_i = 0
-            for l in u["directories"]:
+            for l in u["documents"]:
                 if "shared" not in l or l["shared"] is not True:
                     continue
-                if len(l["documents"]) != 1:
-                    continue
                 lessons.append({})
-                lessons[l_i]["id"] = l["documents"][0]["id"]
-                lessons[l_i]["name"] = l["documents"][0]["name"]
-                lessons[l_i]["tag"] = l["name"]
-                lessons[l_i]["image"] = ti[l["name"]] if l["name"] in ti else "file.svg"
+                lessons[l_i]["id"] = l["id"]
+                lessons[l_i]["name"] = l["name"]
+                # if l["name"] starts with TD, Amphi, TP, etc.
+                if l["name"].startswith(tuple(ti.keys())):
+                    lessons[l_i]["tag"] = l["name"].split(" ")[0]
+                    lessons[l_i]["image"] = ti[lessons[l_i]["tag"]]
+                else:
+                    lessons[l_i]["image"] = "file.svg"
                 lessons[l_i]["url"] = l["generatedLink"] + "?embedded=true"
                 l_i += 1
             units[u_i]["children"] = lessons
